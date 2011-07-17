@@ -1,0 +1,68 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="compassrose-0.0.css">
+<script type="text/javascript" src="jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="jquery-compassrose-0.1.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  function light(element){
+    console.debug($(element).find('img').attr('src'));
+    $(element).toggleClass('lightbox');
+    $("#lightboxOverlay").toggleClass('applied');
+    //set class for use as toggle
+    if($(element).hasClass('lightbox')){
+      var newImgSrcString = $(element).data('imagepath') + $(element).data('imagebase') + "large.jpg";
+      $(element).empty();
+      $(element).html('<span><img src="' + newImgSrcString + '" alt="Image"></span>');
+  
+      var imageElement = $(element).find('img');
+      $(element).css('z-index', 10);
+      
+      //find image height and width
+      var imgW = $(imageElement).width();
+      var imgH = $(imageElement).height();
+      
+      console.debug("w:" + imgW + "h:" + imgH);
+      
+      $(element).css('position', 'fixed');
+      var w = (($(window).width() / 2) - (imgW / 2));
+      var h = (($(window).height() / 2) - (imgH / 2));
+      
+      $(element).css('left', w);
+      $(element).css('top', h);
+    }else{
+      var newImgSrcString = $(element).data('imagepath') + $(element).data('imagebase') + "small.jpg";
+      $(element).empty();
+      $(element).html('<span><img src="' + newImgSrcString + '" alt="Image"></span>');
+      //zindex
+      $(element).css('z-index', 0);
+      //un-center
+      $(element).css('position', 'fixed');
+      $(element).css('left', $(element).data('compassRoseX'));
+      $(element).css('top', $(element).data('compassRoseY'));
+    }
+  }
+
+  var options = {animateOrientation: false,
+                 radius: 250,
+                 center: true,
+                 hoverClass: "",
+                 clickFx: light}
+  $('#nav').compassRose(options);
+});
+</script>
+</head>
+<body>
+<div id="nav">
+  <div data-link="http://www.flickr.com/photos/deptfordjon/5657364508/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="love_"><img src="images/demo-gallery/love_small.jpg" alt="Love"></div>
+  <div data-link="http://www.flickr.com/photos/dvanhorn/5837259541/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="sheep_"><img src="images/demo-gallery/sheep_small.jpg" alt="Sheep"></div>
+  <div data-link="http://www.flickr.com/photos/codepo8/5793084003/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="bulb_"><img src="images/demo-gallery/bulb_small.jpg" alt="Lightbulb"></div>
+  <div data-link="http://www.flickr.com/photos/quattrostagioni/5806842800/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="cans_"><img src="images/demo-gallery/cans_small.jpg" alt="Cans"></div>
+  <div data-link="http://www.flickr.com/photos/daquellamanera/5802189753/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="truck_"><img src="images/demo-gallery/truck_small.jpg" alt="Truck"></div>
+  <div data-link="http://www.flickr.com/photos/773niteowl/5816652413/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="ParkingLot_"><img src="images/demo-gallery/ParkingLot_small.jpg" alt="ParkingLot"></div>
+  <div data-link="http://www.flickr.com/photos/bixentro/5663625123/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="red_"><img src="images/demo-gallery/red_small.jpg" alt="Red"></div>
+</div>
+<div id="lightboxOverlay" class="lightboxOverlay"></div>
+</html>

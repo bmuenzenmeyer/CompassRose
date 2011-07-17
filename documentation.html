@@ -1,0 +1,49 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="compassrose-0.0.css">
+<script type="text/javascript" src="jquery-1.6.1.min.js"></script>
+<link type="text/css" href="jquery-ui/css/vader/jquery-ui-1.8.14.custom.css" rel="Stylesheet" />	
+<script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.14.custom.min.js"></script>
+<script type="text/javascript" src="jquery-compassrose-0.1.js"></script>
+<script type="text/javascript">
+function infoBox(element, turnOff){
+  $(element).siblings().css('z-index', 0);
+  var classes = $(element).attr('class');
+  var class1 = classes.split(" ", 1);
+  var c = '.' + class1 + '.secret';
+   
+  $(c).dialog({ modal: true,
+                title: $(element).text(),
+                autoOpen: true,
+                show: "blind",
+                hide: "blind",
+                width: 500
+  });
+}
+
+$(document).ready(function(){
+  var options = {hoverClass: "compassRoseHover",
+                 animateOrientation: false,
+                 radius: 200,
+                 clickFx: infoBox,
+                 center: true,
+                 centerImageId: 'banner'}
+  $('#nav').compassRose(options);
+});
+</script>
+</head>
+<body>
+<div id="nav">
+  <div class="options">Options</div>
+  <div class="quickStart">Quick Start</div>
+  <div class="api">API</div>
+  <div class="licensing">Licensing</div>
+</div>
+<img src="images/compassrose.png" alt="Compass Rose" id="banner" width="300" height="316"/>
+<div class="quickStart secret">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.
+</div>
+<div class="options secret"> Options's Secret</div>
+<div class="api secret">API's secret</div>
+<div class="licensing secret">Licensing's Secret</div>
+</body>
+</html>
