@@ -33,7 +33,7 @@ function removePlayById(){
 
 function rotateRose(){
   var degrees = $("#rotateInput").val();
-  if(degrees >=0 && degrees < 361){
+  if(degrees >= -359 && degrees < 361){
     $('#nav').compassRose("rotate", degrees);
   }
 }
