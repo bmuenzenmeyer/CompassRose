@@ -6,11 +6,18 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-  var options = {centerImageId: 'licenseInfo',
+
+  $('#licenseDetails').click(function() {
+    $('.license.detail').toggle();
+  });
+
+  var options = {centerElementId: 'licensePane',
                  animateOrientation: false,
                  center: true,
-                 radius: 400}
+                 radius: 400,
+                 centerElementTopOffset: -175}
   $('#licenseBorder').compassRose(options);
+  
 });
 </script>
 </head>
@@ -45,6 +52,28 @@ $(document).ready(function(){
   <div>&#10059;</div>
   <div>&#10059;</div>
 </div>
-<div id="licenseInfo">License Info Here</div>
+<div id="licensePane">
+  <div class="license gist">
+    Compass Rose is free for personal and commercial use, and is licensed with the <span id="licenseDetails">MIT License</span>.  Please donate if you like what you see and you want more!  I offer personal support time to anyone requiring help.    
+    <div id="donateButton">
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="NLMJB2M3HFL2E">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+      </form>
+    </div>
+  </div>
+  <div class="license detail" style="display: none">
+  The MIT License (MIT)
+  Copyright (c) 2011 Brian Muenzenmeyer
+  <br />
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+  <br /><br />
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+  <br /><br />
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  </div>
+</div>
 </body>
 </html>

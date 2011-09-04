@@ -954,9 +954,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         debugMode: false,
         orientOnStart: true,
         animateOrientation: true,
-        centerImageId: undefined,
-        centerImageLeftOffset: 0,
-        centerImageTopOffset: 0,
+        centerElementId: undefined,
+        centerElementLeftOffset: 0,
+        centerElementTopOffset: 0,
         rotationMode: 'Ease', //or 'Turn'
         easingSpeed: 2000,
         sliceWidth: 4
@@ -977,12 +977,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         this.settings.point.y = $(window).height() / 2;
         this.settings.point.x = $(window).width() / 2;
         
-        if(this.settings.centerImageId !== undefined){
-          var centerImg = $('#' + this.settings.centerImageId);
+        if(this.settings.centerElementId !== undefined){
+          var centerImg = $('#' + this.settings.centerElementId);
           $(centerImg).css('position', 'fixed');
-          $(centerImg).css('z-index', -1);
-          $(centerImg).css('left', this.settings.point.x - ($(centerImg).width() / 2) + this.settings.centerImageLeftOffset);
-          $(centerImg).css('top', this.settings.point.y - ($(centerImg).height() / 2) + this.settings.centerImageTopOffset);
+          $(centerImg).css('z-index', 1);
+          $(centerImg).css('left', this.settings.point.x - ($(centerImg).width() / 2) + this.settings.centerElementLeftOffset);
+          $(centerImg).css('top', this.settings.point.y - ($(centerImg).height() / 2) + this.settings.centerElementTopOffset);
         }
         var root = $(this);
         
@@ -991,12 +991,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
           root[0].settings.point.y = $(window).height() / 2;
           root[0].settings.point.x = $(window).width() / 2;
 
-          if(root[0].settings.centerImageId !== undefined){
-            var centerImg = $('#' + root[0].settings.centerImageId);
+          if(root[0].settings.centerElementId !== undefined){
+            var centerImg = $('#' + root[0].settings.centerElementId);
             $(centerImg).css('position', 'fixed');
-            $(centerImg).css('z-index', -1);
-            $(centerImg).css('left', root[0].settings.point.x - ($(centerImg).width() / 2) + root[0].settings.centerImageLeftOffset);
-            $(centerImg).css('top', root[0].settings.point.y - ($(centerImg).height() / 2) + root[0].settings.centerImageTopOffset);
+            $(centerImg).css('left', root[0].settings.point.x - ($(centerImg).width() / 2) + root[0].settings.centerElementLeftOffset);
+            $(centerImg).css('top', root[0].settings.point.y - ($(centerImg).height() / 2) + root[0].settings.centerElementTopOffset);
           }
           
           root[0]._orient(true);
