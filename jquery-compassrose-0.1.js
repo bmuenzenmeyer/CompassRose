@@ -934,9 +934,22 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
  
 **********************************/
 
-(function($){
+(function ($) {
 
-  $.compassRose = function(options, element){
+  var delayUntilDone = function() {
+    var timers = {};
+    return function (callback, time, id) {
+      if (!id){
+        id = "defaultId";
+      }
+      if (timers[id]) {
+        clearTimeout (timers[id]);
+      }
+      timers[id] = setTimeout(callback, time);
+    };
+  };
+
+  $.compassRose = function (options, element) {
     this.element = $(element);
     this._init(options);
   };
@@ -964,7 +977,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   $.compassRose.prototype = {
     
-    _init : function(options){
+    _init : function (options) {
       this.settings = $.extend( true, {}, $.compassRose.settings, options);
       //add some data members
       this.settings.currentDirection = 0;
@@ -978,11 +991,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         this.settings.point.x = $(window).width() / 2;
         
         if(this.settings.centerElementId !== undefined){
-          var centerImg = $('#' + this.settings.centerElementId);
-          $(centerImg).css('position', 'fixed');
-          $(centerImg).css('z-index', 1);
-          $(centerImg).css('left', this.settings.point.x - ($(centerImg).width() / 2) + this.settings.centerElementLeftOffset);
-          $(centerImg).css('top', this.settings.point.y - ($(centerImg).height() / 2) + this.settings.centerElementTopOffset);
+          var centerEle = $('#' + this.settings.centerElementId);
+          $(centerEle).css('position', 'fixed');
+          $(centerEle).css('left', this.settings.point.x - ($(centerEle).width() / 2) + this.settings.centerElementLeftOffset);
+          $(centerEle).css('top', this.settings.point.y - ($(centerEle).height() / 2) + this.settings.centerElementTopOffset);
         }
         var root = $(this);
         
@@ -992,10 +1004,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
           root[0].settings.point.x = $(window).width() / 2;
 
           if(root[0].settings.centerElementId !== undefined){
-            var centerImg = $('#' + root[0].settings.centerElementId);
-            $(centerImg).css('position', 'fixed');
-            $(centerImg).css('left', root[0].settings.point.x - ($(centerImg).width() / 2) + root[0].settings.centerElementLeftOffset);
-            $(centerImg).css('top', root[0].settings.point.y - ($(centerImg).height() / 2) + root[0].settings.centerElementTopOffset);
+            var centerEle = $('#' + root[0].settings.centerElementId);
+            $(centerEle).css('position', 'fixed');
+            $(centerEle).css('left', root[0].settings.point.x - ($(centerEle).width() / 2) + root[0].settings.centerElementLeftOffset);
+            $(centerEle).css('top', root[0].settings.point.y - ($(centerEle).height() / 2) + root[0].settings.centerElementTopOffset);
           }
           
           root[0]._orient(true);
@@ -1008,23 +1020,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         this._orient();
       }     
     },
-    _calibrate: function(){
+    _calibrate: function () {
       this.settings.directions$ = this.element.children('div');
       //determine position of n directions within arc
       this.settings.arcSpan = this.settings.arc / this.settings.directions$.length;
       var rose = this;
       //add data to each passed in direction
       this.settings.directions$.each(function(n){       
-        var ele = $(this);
+        var ele = $(this),
+            content = $(ele).html(),
+            htmlString = '<span>' + content + '</span>';
         $(ele).data('compassRoseIndex', n);
         $(ele).data('compassRoseDirectionAngle', (n) * rose.settings.arcSpan);      
       
         //create the innerspan
-        var content = $(ele).html();
-        $(ele).empty();
-        var htmlString = '<span>' + content + '</span>';
-        $(ele).append(htmlString);
-      
+        $(ele).empty().append(htmlString);
         $(ele).click(function(){
           rose.settings.clickFx(this);
         });
@@ -1042,22 +1052,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       
       });    
     },
-    _orient: function(performAnimation, performEasing){
-      if(performAnimation == undefined){
+    _orient: function (performAnimation, performEasing) {
+      if(performAnimation === undefined){
         performAnimation = false;
       }
-      if(performEasing == undefined){
-        performiEasing = false;
+      if(performEasing === undefined){
+        performEasing = false;
       }
       var rose = this;
       
       this.settings.directions$.each(function(n){
-        var ele = $(this);
-        
         //calculate each direction's offset
-        var radianAngle = $(ele).data('compassRoseDirectionAngle') * Math.PI / 180;
-        var xOffset = (Math.cos(radianAngle) * rose.settings.radius) + rose.settings.point.x - ($(ele).find('span').width() / 2);
-        var yOffset = (Math.sin(radianAngle) * rose.settings.radius * -1) + rose.settings.point.y;
+        var ele = $(this),      
+            radianAngle = $(ele).data('compassRoseDirectionAngle') * Math.PI / 180,
+            xOffset = (Math.cos(radianAngle) * rose.settings.radius) + rose.settings.point.x - ($(ele).find('span').width() / 2),
+            yOffset = (Math.sin(radianAngle) * rose.settings.radius * -1) + rose.settings.point.y;
         
         $(ele).data('compassRoseX', xOffset);
         $(ele).data('compassRoseY', yOffset);
@@ -1077,19 +1086,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
       });
     },
-    addDirection: function(newElement) {
+    addDirection: function (newElement) {
       $(this.element).append('<div>' + newElement + '</div>');
       this._calibrate();
       this._orient();
     },
-    removeDirection: function(id) {      
+    removeDirection: function (id) {      
       if(id !== undefined){
-        var index = this._findIndex(id);
+        var index = this._findIndex(id),
+            ele;
         //if not found, return
-        if(index == -1){
+        if(index === -1){
           return;
         }
-        var ele = $(this.settings.directions$).get(index);
+        ele = $(this.settings.directions$).get(index);
         $(ele).remove();
       } else {
         this.element.children('div:last').remove();    
@@ -1097,23 +1107,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       this._calibrate();
       this._orient();
     },
-    rotate: function(degrees){
+    rotate: function (degrees) {
       //check rotationmode, if 'ease', go right there with specified easing method
-      if(this.settings.rotationMode === 'Ease' && degrees != 0){
+      if(this.settings.rotationMode === 'Ease' && degrees !== 0){
         this._rotate(degrees);
         this._orient(true, true);
       }
-      else if(this.settings.rotationMode === 'Turn' && degrees != 0){
+      else if(this.settings.rotationMode === 'Turn' && degrees !== 0){
         this._rotateBySlices(degrees);
         this._orient(true, false);
        }
       this.settings.onRotateFx();
     },
-    _rotate: function(degrees){
+    _rotate: function (degrees) {
       this.settings.directions$.each(function(n){       
-        var ele = $(this);
-        var currentAngle = parseInt($(ele).data('compassRoseDirectionAngle'));
-        var newAngle = currentAngle + parseInt(degrees);       
+        var ele = $(this),
+            currentAngle = parseInt($(ele).data('compassRoseDirectionAngle'), 10),
+            newAngle = currentAngle + parseInt(degrees, 10);       
         if(newAngle >= 360){
           newAngle -= 360;
         }
@@ -1123,9 +1133,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         $(ele).data('compassRoseDirectionAngle', newAngle);          
       });
     },
-    _rotateBySlices: function(degrees){
-      if(degrees == 0) { return; }  
-      var absDegrees = Math.abs(degrees)
+    _rotateBySlices: function (degrees) {
+      if(degrees === 0) { return; }  
+      var absDegrees = Math.abs(degrees);
       if(absDegrees <= this.settings.sliceWidth){
         this._rotateSlice(degrees);
         this.rotate(0);
@@ -1138,11 +1148,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         this._rotateBySlices(degrees - this.settings.sliceWidth);
       }
     },      
-    _rotateSlice: function(degrees){
+    _rotateSlice: function (degrees) {
         this.settings.directions$.each(function(n){       
-          var ele = $(this);
-          var currentAngle = parseInt($(ele).data('compassRoseDirectionAngle'));
-          var newAngle = currentAngle + parseInt(degrees);       
+          var ele = $(this),
+              currentAngle = parseInt($(ele).data('compassRoseDirectionAngle'), 10),
+              newAngle = currentAngle + parseInt(degrees, 10);       
           if(newAngle >= 360){
             newAngle -= 360;
           }
@@ -1153,26 +1163,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         });
         this._orient(true, false);
     },
-    rotateTo: function(id, angle){
+    rotateTo: function (id, angle) {
       //find element within settings.directions$
-      var index = this._findIndex(id);
+      var index = this._findIndex(id),
+          ele,
+          currentAngle,
+          difference;
       //if not found, return
-      if(index == -1){
+      if(index === -1){
         return;
       }
        
-      var ele = $(this.settings.directions$).get(index);
-      var currentAngle = $(ele).data('compassRoseDirectionAngle');
+      ele = $(this.settings.directions$).get(index);
+      currentAngle = $(ele).data('compassRoseDirectionAngle');
       //find difference
-      var difference = parseInt(angle) - parseInt(currentAngle);
+      difference = parseInt(angle, 10) - parseInt(currentAngle, 10);
         
       //rotate difference
       this.rotate(difference);
     },
-    _findIndex: function(id){
+    _findIndex: function (id) {
       var foundIndex = -1;
       $.each(this.settings.directions$, function(i, l){
-        if($(l).attr("id") == id){
+        if($(l).attr("id") === id){
           foundIndex = i;
         }
       });
@@ -1190,7 +1203,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   // A bit from jcarousel 
   //   https://github.com/jsor/jcarousel/blob/master/lib/jquery.jcarousel.js
   // "
-  $.fn.compassRose = function( options ) {
+  $.fn.compassRose = function ( options ) {
     if ( typeof options === 'string' ) {
       // call method
       var args = Array.prototype.slice.call( arguments, 1 );
@@ -1224,18 +1237,5 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     // so plugin methods do not have to
     return this;
   };
-  
-  var delayUntilDone = (function(){
-    var timers = {};
-    return function (callback, time, id) {
-      if (!id){
-        id = "defaultId";
-      }
-      if (timers[id]) {
-        clearTimeout (timers[id]);
-      }
-      timers[id] = setTimeout(callback, time);
-    };
-  })();
  
 })(jQuery);
