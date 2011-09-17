@@ -1178,7 +1178,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       currentAngle = $(ele).data('compassRoseDirectionAngle');
       //find difference
       difference = parseInt(angle, 10) - parseInt(currentAngle, 10);
-        
+      if (difference < -180){
+      	difference = (360 + difference);
+      }
       //rotate difference
       this.rotate(difference);
     },
