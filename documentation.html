@@ -2,46 +2,63 @@
 <head>
 <link rel="stylesheet" type="text/css" href="compassrose-0.0.css">
 <script type="text/javascript" src="jquery-1.6.1.min.js"></script>
-<link type="text/css" href="jquery-ui/css/vader/jquery-ui-1.8.14.custom.css" rel="Stylesheet" />	
-<script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.14.custom.min.js"></script>
 <script type="text/javascript" src="jquery-compassrose-0.1.js"></script>
 <script type="text/javascript">
-function infoBox(element, turnOff){
-  $(element).siblings().css('z-index', 0);
-  var classes = $(element).attr('class');
-  var class1 = classes.split(" ", 1);
-  var c = '.' + class1 + '.secret';
-   
-  $(c).dialog({ modal: true,
-                title: $(element).text(),
-                autoOpen: true,
-                show: "blind",
-                hide: "blind",
-                width: 500
-  });
+function optionToHtml(optionTitle, optionType, optionDefault, optionDescription){
+	return "<div class='optionContainer'><div class='optionTitle'>" + optionTitle + 
+	"</div><div class='optionType'>" + optionType + 
+	"</div><div class='optionDefault'>" + optionDefault + 
+	"</div><div class='optionDescription'>" + optionDescription + "</div></div>"
 }
-
+var contentLibrary = {radius: optionToHtml('radius', 'number or %', '90%', 'Defines the radius of the CompassRose relative to the page window.  Uses smallest dimension when determining radius by percent.'),
+                      arc: optionToHtml('arc', 'number', '360', 'Defines the portion of a circle to orient CompassRose elements on.  360 is a complete circle.'),
+                      center: optionToHtml('center', 'boolean', 'true', 'When true, centers CompassRose on the browser window.'),
+					  point: optionToHtml('point', 'object', '{x:600, y:600}', 'When "center" is false, the point determines where the middle of CompassRose orients.'),
+					  radialOffset: optionToHtml('radialOffset', 'number', '0', 'Causes CompassRose to start orienting from a position relative to "North."'),
+					  centerElementId: optionToHtml('centerElementId', 'string', 'compassRoseContent', 'Defines the element to be centered among CompassRose elements.'),
+					  centerElementLeftOffset: optionToHtml('centerElementLeftOffset', 'number', '0', 'Defines a relative offset on the x-axis of the center of CompassRose.'),
+					  centerElementTopOffset: optionToHtml('centerElementTopOffset', 'number', '0', 'Defines a relative offset on the y-axis of the center of CompassRose.'),
+					  rotationEasing: optionToHtml('rotationEasing', 'string', 'undefined', 'String name of easing function to be used during rotate and rotateTo calls.  Supply your own for maximum flexibility.'),
+					  easingSpeed: optionToHtml('easingSpeed', 'number', '2000', 'Number in millisecondsto perform easing function on radial animations.'),
+					  sliceWidth: optionToHtml('sliceWidth', 'number', '4', 'The number of degrees to move CompassRose elements at a time when rotating without an easing function.  The default is set to preserve the look of radial movement.'),
+					  hoverFx: optionToHtml('hoverFx','function', 'jQuery.noop()', 'Function to be called when user hovers over CompassRose element.'),
+					  blurFx: optionToHtml('blurFx','function', 'jQuery.noop()', 'Function to be called when user leaves CompassRose element.'),
+					  clickFx: optionToHtml('clickFx', 'function', 'jQuery.noop()', 'Function to be called when user clicks on CompassRose element.'),
+					  onRotateFx: optionToHtml('onRotateFx', 'function', 'jQuery.noop()', 'Function to be called after CompassRose is finished rotating.')
+					 }
 $(document).ready(function(){
-  var options = {hoverClass: "compassRoseHover",
-                 animateOrientation: false,
-                 radius: 200,
-                 clickFx: infoBox,
-                 center: true,
-                 centerElementId: 'banner'}
-  $('#nav').compassRose(options);
+  $('#nav').compassRose({arc: 180});
+  $('#nav > div').click(function(){
+    var contentKey = $(this).attr('id');
+    $('#optionSnippet').html(contentLibrary[contentKey]);
+	$('#nav').compassRose('center');
+  });
 });
 </script>
 </head>
 <body>
+<div id="banner">
+  <div class="emphasis"><a href="index3.html">Compass Rose</a> is a radial navigation/orientation plugin written in jQuery</div>
+</div>
 <div id="nav">
-  <div class="options">Options</div>
-  <div class="quickStart">Quick Start</div>
-  <div class="api">API</div>
+  <div id='radius'>radius</div>
+  <div id='arc'>arc</div>
+  <div id='center'>center</div>
+  <div id='point'>point</div>
+  <div id='radialOffset'>radialOffset</div>
+  <div id='centerElementId'>centerElementId</div>
+  <div id='centerElementLeftOffset'>centerElementLeftOffset</div>
+  <div id='centerElementTopOffset'>centerElementTopOffset</div>
+  <div id='rotationEasing'>rotationEasing</div>
+  <div id='easingSpeed'>easingSpeed</div>
+  <div id='sliceWidth'>sliceWidth</div>
+  <div id='hoverFx'>hoverFx</div>
+  <div id='blurFx'>blurFx</div>
+  <div id='clickFx'>clickFx</div>
+  <div id='onRotateFx'>onRotateFx</div>
 </div>
-<img src="images/compassrose.png" alt="Compass Rose" id="banner" width="300" height="316"/>
-<div class="quickStart secret">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula tellus nec urna rhoncus iaculis. Nullam venenatis lobortis dapibus. Suspendisse potenti. Proin at dui lorem. Proin vel ultricies mi. Vivamus laoreet, est facilisis tristique mattis, sapien elit volutpat lacus, sed viverra dui nisi quis dolor. Vivamus gravida tincidunt varius. Sed convallis, velit ac aliquet tincidunt, leo lacus rhoncus est, vel molestie metus arcu venenatis risus. Aliquam tempor turpis quis sem auctor pulvinar. Sed vel felis id justo convallis dapibus. Mauris luctus, purus a placerat faucibus, diam nisi mollis leo, vitae bibendum nibh orci ac dolor. Vestibulum placerat tincidunt odio. Aliquam erat volutpat. Phasellus suscipit, libero lobortis rhoncus imperdiet, nisi erat viverra justo, ac auctor erat tellus eget eros. Donec placerat, tellus ut sodales hendrerit, sapien libero lobortis dolor, ut scelerisque odio massa nec tellus. Etiam commodo commodo lorem in ultricies. Nam tempor, metus a accumsan ultrices, elit justo volutpat quam, a sollicitudin dolor libero vitae mauris. Curabitur id ornare turpis. Vestibulum ullamcorper quam vel augue dignissim volutpat non sed arcu.
+<div id='compassRoseContent'>
+  <div id="optionSnippet">var options = {...};</div>
 </div>
-<div class="options secret"> Options's Secret</div>
-<div class="api secret">API's secret</div>
 </body>
 </html>

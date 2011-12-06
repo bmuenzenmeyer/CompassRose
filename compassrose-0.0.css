@@ -82,29 +82,77 @@ a:visited
 {
   float: right;
 }
-
 .ui-dialog-content
 { 
   overflow-y: auto !important; 
   height: 300px !important; 
-} 
-
-#licensePane
+}
+.centerContent
 {
-  width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+width: 400px;
+height: 425px;
+margin-left: auto;
+margin-right: auto;
+}
+.emphasis
+{
+ font-style: italic;
+}
+.exampleContainer
+{
+width: 400px;
+position: relative;
+left : 50%;
+margin-left: -200px;
+}
+code, .optionContainer
+{
+border: 1px solid black;
+padding: 10px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-moz-box-shadow: 2x 2px 2px black;
+-webkit-box-shadow: 2px 2px 2px black;
+box-shadow: 2px 2px 2px black;
+}
+code div
+{
+width: 400px;
+}
+code span
+{
+color: #ac0606;
+}
+#optionSnippet
+{
+width: 250px;
+}
+.optionTitle
+{
+font-weight: bold;
+padding-right: 10px;
+}
+.optionType
+{
+float: left;
+color: #ac0606;
+padding-right: 10px;
+}
+.optionDefault
+{
+float: left;
+font-style: italic;
+}
+.optionDescription
+{
+clear: both;
 }
 
-.license
-{
-  font-size: 1em;
-  text-align: center;
+#contactRibbon{
+position: absolute;
+top: 30px;
 }
 
-#licenseDetails
-{
-  color: #ac0606;
-  text-decoration: underline;
-  font-weight: bold;
+#contactRibbon span{
+display: block;
 }

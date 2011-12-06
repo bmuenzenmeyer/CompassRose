@@ -2,30 +2,65 @@
 <head>
 <link rel="stylesheet" type="text/css" href="compassrose-0.0.css">
 <script type="text/javascript" src="jquery-1.6.1.min.js"></script>
-<script type="text/javascript" src="jquery-compassrose-0.1.js"></script>
+<script type="text/javascript" src="jquery-compassrose-0.1.min.js"></script>
+<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
 <script type="text/javascript">
+var contentLibrary = {home: "$(<span>'#nav'</span>).compassRose();",
+                      rotate: "$(<span>'#nav'</span>).compassRose(<span>'rotate'</span>, 35);",
+                      northPole: "$(<span>'#nav'</span>).compassRose(<span>'rotateTo'</span>, <span>'northPole'</span>, 90);"}
+function action(key){
+  switch (key){
+    case 'home':
+      $('#nav').compassRose('rotateTo', key, 90);
+      break;
+    case 'northPole':
+      $('#nav').compassRose('rotateTo', key, 90);
+      break;
+    case 'rotate':
+      $('#nav').compassRose('rotate', 35);
+      break;
+  }
+  $('#nav').compassRose('center');
+}
 
 $(document).ready(function(){
-  var options = {hoverClass: "compassRoseHover",
-                 animateOrientation: false,
-                 center: true,
-                 centerElementId: 'banner',
-                 centerElementLeftOffset: 0}
-  $('#nav').compassRose(options);
+  $('#nav').compassRose();
+  $('#nav > div').click(function(){
+    var contentKey = $(this).attr('id');
+    $('#codeSnippet').html(contentLibrary[contentKey]);
+    action(contentKey);
+  });
 });
 </script>
 </head>
+<!--
+-display rose on startup with a fade away to the content
+-clicking home will reset the website.
+-->
 <body>
-<div id="nav">
-  <div><a href="lab.html" title="playground of some functionality">Lab</a></div>
-  <div><a href="demos.html" title="this is only the beginning">Demos</a></div>
-  <div><a href="index.html" title="all roads lead north">Home</a></div>
-  <div><a href="documentation.html" title="do this, don't do that, can't you read the signs?">Documentation</a></div>
-  <div><a href="https://github.com/bmuenzenmeyer/CompassRose" alt="github">Download</a></div>
-  <div><a href="license.html" title="">License</a></div>
-  <div><a href="http://www.brianmuenzenmeyer.com/" title="the problem that started it all">brianmuenzenmeyer.com</a></div>
-  <div alt="Coming Soon"><a href="contact.html" title="find me">Contact</a></div>
+<div id="banner">
+  <div class="emphasis">Compass Rose is a radial navigation/orientation plugin written in jQuery</div>
 </div>
-<img src="images/compassrose.png" alt="Compass Rose" id="banner" width="300" height="316"/>
+<div id="contactRibbon">
+	<span><a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="bmuenzenmeyer">Tweet</a></span>
+	<span><a href="https://twitter.com/bmuenzenmeyer" class="twitter-follow-button" data-show-count="false">Follow @bmuenzenmeyer</a></span></div>
+<div id="nav">
+  <div id='home'>Home</div>
+  <div>&#9784;</div>
+  <div id='github'><a href="https://github.com/bmuenzenmeyer/CompassRose" target="_blank">Download</a></div>
+  <div>&#9784;</div>
+  <div id='rotate'>Rotate 35&deg</div>
+  <div>&#9784;</div>
+  <div id='northPole'>Rotate to North</div>
+  <div>&#9784;</div>
+  <div id='demos'><a href="demos.html">Showcase</a></div>
+  <div>&#9784;</div>
+  <div id='docs'><a href="documentation.html">Options</a></div>
+  <div>&#9784;</div>
+</div>
+<div id='compassRoseContent'>
+  <pre><code id="codeSnippet">$(<span>'#nav'</span>).compassRose();</code></pre>
+</div>
 </body>
 </html>
