@@ -57,8 +57,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       $(element).css('left', this.settings.point.x - ($(element).width() / 2) + this.settings.centerElementLeftOffset);
       $(element).css('top', this.settings.point.y - ($(element).height() / 2) + this.settings.centerElementTopOffset);	
 	},
+	//centers CompassRose on given point or the window
     center: function(suppliedPoint){
-		//validate better
 	  if (suppliedPoint){
 		this.settings.center = false;
 		this.settings.point = suppliedPoint;
@@ -71,14 +71,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     },
     _init : function (options) {
       this.settings = $.extend( true, {}, $.compassRose.settings, options);
-      //add some data members
-      this.settings.currentDirection = 0;
-      
       //override point if center chosen
       if(this.settings.center){
-        //note, block elements will break the width calculation
-        //if compassRose is applied to a div, this will work
-        //todo, check contextually
         if(this.settings.centerElementId !== undefined){
           this.center();
         }
@@ -91,7 +85,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             root[0]._orient(true);
           }, 400, "resizeWindow");         
         });
-      }else{
+      } else {
 		this._center();
 	  }
       this._calibrate();
@@ -119,7 +113,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         var ele = $(this),
             content = $(ele).html(),
             htmlString = '<span>' + content + '</span>';
-        $(ele).data('compassRoseIndex', n);
         $(ele).data('compassRoseDirectionAngle', (n * rose.settings.arcSpan) + 90 + rose.settings.radialOffset); //90 to start at north, offset to allow user to go from there      
       
         //create the innerspan
@@ -154,10 +147,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             radianAngle = $(ele).data('compassRoseDirectionAngle') * Math.PI / 180,
             xOffset = (Math.cos(radianAngle) * rose.settings.radius) + rose.settings.point.x - ($(ele).find('span').width() / 2),
             yOffset = (Math.sin(radianAngle) * rose.settings.radius * -1) + rose.settings.point.y;
-        
-        $(ele).data('compassRoseX', xOffset);
-        $(ele).data('compassRoseY', yOffset);
-        
         $(ele).css('position', 'fixed');
         if(performAnimation){
           if(performEasing){
@@ -173,8 +162,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
       });
     },
+	//rotate CompassRose by the given amount of degrees
     rotate: function (degrees) {
-      //if a custom Easing function is applied, use it during orientation
+      //if a custom Easing function is applied, use it during orientation and do not rotate in slices
       if(this.settings.rotationEasing !== undefined && degrees !== 0){
         this._rotate(degrees);
         this._orient(true, true);
@@ -229,6 +219,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         });
         this._orient(true, false);
     },
+	//rotate the given CompassRose id to the given angle
     rotateTo: function (id, angle) {
       //find element within settings.directions$
       var index = this._findIndex(id),
@@ -261,12 +252,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
   };
 
-  //
   // Create or return $.CompassRose constructor
   // Adapted from jQuery Isotope's architecture
   //   https://github.com/desandro/isotope/blob/master/jquery.isotope.js
-  // "
-  // A bit from jQuery UI
+  // "A bit from jQuery UI
   //   https://github.com/jquery/jquery-ui/blob/master/ui/jquery.ui.widget.js
   // A bit from jcarousel 
   //   https://github.com/jsor/jcarousel/blob/master/lib/jquery.jcarousel.js
