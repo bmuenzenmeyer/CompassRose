@@ -147,6 +147,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             radianAngle = $(ele).data('compassRoseDirectionAngle') * Math.PI / 180,
             xOffset = (Math.cos(radianAngle) * rose.settings.radius) + rose.settings.point.x - ($(ele).find('span').width() / 2),
             yOffset = (Math.sin(radianAngle) * rose.settings.radius * -1) + rose.settings.point.y;
+			
+		$(ele).data('compassRoseX', xOffset);
+        $(ele).data('compassRoseY', yOffset);
+			
         $(ele).css('position', 'fixed');
         if(performAnimation){
           if(performEasing){
