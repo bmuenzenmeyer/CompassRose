@@ -1,6 +1,6 @@
 {
 	"name": "compassrose",
-	"version": "0.2",
+	"version": "0.3",
 	"title": "Compass Rose",
 	"author": {
 		"name": "Brian Muenzenmeyer",
@@ -13,7 +13,7 @@
 	  }
 	],
 	"dependencies": {
-		"jquery" : "1.6.1"
+		"jquery" : "1.7.1"
 	},
 	"description": "CompassRose is a radial navigation/orientation plugin",
 	"keywords": [
@@ -25,11 +25,10 @@
 	],
 	"homepage": "http://compassro.se",
 	"files": [
-		"compassrose-0.2.js",
-		"compassrose-0.2.min.js",
-		"jquery-1.6.1.min.js",
+		"compassrose-0.3.js",
+		"compassrose-0.3.min.js",
+		"jquery-1.7.1.min.js",
 		"package.json",
-		"readme.txt",
-		"CompassRose-0.2.zip"
+		"readme.md"
 	]
 }

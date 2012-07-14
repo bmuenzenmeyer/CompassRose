@@ -37,7 +37,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         arc: 360,
         center: true,
         point: {x:600, y:600},
-		    radialOffset: 0,
+        radialOffset: 0,
         centerElementId: 'compassRoseContent',
         centerElementLeftOffset: 0,
         centerElementTopOffset: 0,
@@ -51,23 +51,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   $.compassRose.prototype = {
-	_center: function(){
+  _center: function(){
       var element = $('#' + this.settings.centerElementId);
       $(element).css('position', 'fixed');
       $(element).css('left', this.settings.point.x - ($(element).width() / 2) + this.settings.centerElementLeftOffset);
-      $(element).css('top', this.settings.point.y - ($(element).height() / 2) + this.settings.centerElementTopOffset);	
-	},
-	//centers CompassRose on given point or the window
+      $(element).css('top', this.settings.point.y - ($(element).height() / 2) + this.settings.centerElementTopOffset);  
+  },
+  //centers CompassRose on given point or the window
     center: function(suppliedPoint){
-	  if (suppliedPoint){
-		this.settings.center = false;
-		this.settings.point = suppliedPoint;
-	  } else {
-		this.settings.center = true;
-		this.settings.point.y = $(window).height() / 2;
-		this.settings.point.x = $(window).width() / 2;
+    if (suppliedPoint){
+    this.settings.center = false;
+    this.settings.point = suppliedPoint;
+    } else {
+    this.settings.center = true;
+    this.settings.point.y = $(window).height() / 2;
+    this.settings.point.x = $(window).width() / 2;
       }
-	  this._center(); 
+    this._center(); 
     },
     _init : function (options) {
       this.settings = $.extend( true, {}, $.compassRose.settings, options);
@@ -76,18 +76,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         if(this.settings.centerElementId !== undefined){
           this.center();
         }
-        var root = $(this);        
-        $(window).resize(function(){
-          delayUntilDone(function(){
-            if(root[0].settings.centerElementId !== undefined){
-              root[0].center();
-            }
-            root[0]._orient(true);
-          }, 400, "resizeWindow");         
-        });
       } else {
-		this._center();
-	  }
+        this._center();
+      }
       this._calibrate();
       this._orient();
     },
@@ -129,28 +120,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             rose.settings.blurFx(this);
           }
         );
-      
       });    
     },
-    _orient: function (performAnimation, performEasing) {
-      if(performAnimation === undefined){
-        performAnimation = false;
-      }
-      if(performEasing === undefined){
-        performEasing = false;
-      }
-      var rose = this;
-      
-      this.settings.directions$.each(function(n){
-        //calculate each direction's offset
-        var ele = $(this),      
-            radianAngle = $(ele).data('compassRoseDirectionAngle') * Math.PI / 180,
-            xOffset = (Math.cos(radianAngle) * rose.settings.radius) + rose.settings.point.x - ($(ele).find('span').width() / 2),
-            yOffset = (Math.sin(radianAngle) * rose.settings.radius * -1) + rose.settings.point.y;
-			
-		$(ele).data('compassRoseX', xOffset);
+  orient: function(performAnimation, performEasing) {
+    this._orient(performAnimation, performEasing);
+  },
+  _orient: function (performAnimation, performEasing) {
+    if(performAnimation === undefined){
+      performAnimation = false;
+    }
+    if(performEasing === undefined){
+      performEasing = false;
+    }
+    var rose = this;
+    
+    this.settings.directions$.each(function(n){
+      //calculate each direction's offset
+      var ele = $(this),      
+          radianAngle = $(ele).data('compassRoseDirectionAngle') * Math.PI / 180,
+          xOffset = (Math.cos(radianAngle) * rose.settings.radius) + rose.settings.point.x - ($(ele).find('span').width() / 2),
+          yOffset = (Math.sin(radianAngle) * rose.settings.radius * -1) + rose.settings.point.y;
+    
+    $(ele).data('compassRoseX', xOffset);
         $(ele).data('compassRoseY', yOffset);
-			
+      
         $(ele).css('position', 'fixed');
         if(performAnimation){
           if(performEasing){
@@ -166,7 +159,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
       });
     },
-	//rotate CompassRose by the given amount of degrees
+    //rotate CompassRose by the given amount of degrees
     rotate: function (degrees) {
       //if a custom Easing function is applied, use it during orientation and do not rotate in slices
       if(this.settings.rotationEasing !== undefined && degrees !== 0){
@@ -223,7 +216,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         });
         this._orient(true, false);
     },
-	//rotate the given CompassRose id to the given angle
+    //rotate the given CompassRose id to the given angle
     rotateTo: function (id, angle) {
       //find element within settings.directions$
       var index = this._findIndex(id),
@@ -240,7 +233,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       //find difference
       difference = parseInt(angle, 10) - parseInt(currentAngle, 10);
       if (difference < -180){
-      	difference = (360 + difference);
+        difference = (360 + difference);
       }
       //rotate difference
       this.rotate(difference);
