@@ -37,7 +37,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         arc: 360,
         center: true,
         point: {x:600, y:600},
-		radialOffset: 0,
+		    radialOffset: 0,
         centerElementId: 'compassRoseContent',
         centerElementLeftOffset: 0,
         centerElementTopOffset: 0,
