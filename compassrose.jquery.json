@@ -1,0 +1,37 @@
+{
+	"name": "compassrose",
+	"version": "0.3",
+	"title": "Compass Rose",
+	"author": {
+		"name": "Brian Muenzenmeyer",
+		"url": "http://www.brianmuenzenmeyer.com"
+	},
+	"licenses": [
+	  {
+	   "type": "MIT",
+	   "url": "http://www.opensource.org/licenses/mit-license.php"
+	  }
+	],
+	"dependencies": {
+		"jquery" : "1.7.1"
+	},
+	"description": "CompassRose is a radial navigation/orientation plugin",
+	"keywords": [
+		"navigation",
+		"layout",
+		"circular",
+		"radial",
+		"orientation"
+	],
+	"homepage": "http://compassro.se",
+	"demo": "http://compassro.se",
+	"docs": "http://compassro.se/documentation.html",
+	bugs: "https://github.com/bmuenzenmeyer/CompassRose/issues?direction=desc&sort=created&state=open",
+	"files": [
+		"compassrose-0.3.js",
+		"compassrose-0.3.min.js",
+		"jquery-1.7.1.min.js",
+		"package.json",
+		"readme.md"
+	]
+}
