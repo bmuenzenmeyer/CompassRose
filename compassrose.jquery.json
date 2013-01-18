@@ -31,7 +31,7 @@
 		"compassrose-0.3.0.js",
 		"compassrose-0.3.0.min.js",
 		"jquery-1.7.1.min.js",
-		"package.json",
+		"compassrose.jquery.json",
 		"readme.md"
 	]
 }
