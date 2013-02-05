@@ -26,7 +26,7 @@
 	"homepage": "http://compassro.se",
 	"demo": "http://compassro.se",
 	"docs": "http://compassro.se/documentation.html",
-	bugs: "https://github.com/bmuenzenmeyer/CompassRose/issues?direction=desc&sort=created&state=open",
+	"bugs": "https://github.com/bmuenzenmeyer/CompassRose/issues?direction=desc&sort=created&state=open",
 	"files": [
 		"compassrose-0.3.0.js",
 		"compassrose-0.3.0.min.js",
