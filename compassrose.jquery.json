@@ -1,6 +1,6 @@
 {
 	"name": "compassrose",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"title": "Compass Rose",
 	"author": {
 		"name": "Brian Muenzenmeyer",
@@ -28,8 +28,8 @@
 	"docs": "http://compassro.se/documentation.html",
 	"bugs": "https://github.com/bmuenzenmeyer/CompassRose/issues?direction=desc&sort=created&state=open",
 	"files": [
-		"compassrose-0.3.0.js",
-		"compassrose-0.3.0.min.js",
+		"compassrose-0.3.1.js",
+		"compassrose-0.3.1.min.js",
 		"jquery-1.7.1.min.js",
 		"compassrose.jquery.json",
 		"readme.md"
