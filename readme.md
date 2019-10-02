@@ -2,7 +2,7 @@ CompassRose
 ========================
 
 * A jQuery plugin created by Brian Muenzenmeyer
-* Live demo @ www.compassro.se
+* Live demo @ https://compassrose.netlify.com
 
 ### License
 MIT - http://www.opensource.org/licenses/mit-license.php
