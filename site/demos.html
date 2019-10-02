@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>CompassRose - A radial jQuery Plugin</title>
+<link rel="stylesheet" type="text/css" href="compassrose-0.0.css">
+</head>
+<body>
+<a href="https://github.com/bmuenzenmeyer/CompassRose"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/fork.png" alt="Fork me on GitHub"></a>
+<div id="banner">
+  <div class="emphasis">Make something cool with <a href="http://compassro.se">Compass Rose</a> and I'll include it here!</div>
+</div>
+<div id="nav">
+  <div><a href="http://compassro.se" title="All roads lead north-ish">Home</a></div>
+  <div><a href="demo-gallery.html" title="Lightbox Demo">Lightbox</a></div>
+  <div><a href="demo-infobox.html" title="A side of flare with your content">Infobox</a></div>
+  <div><a href="demo-fun.html" title="We have multiple bogies on radar">Multiple</a></div>
+</div>
+<img src="images/compassrose.png" alt="Compass Rose" id="compassRoseContent" width="300" height="316"/>
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="compassrose-0.3.min.js"></script>
+<script type="text/javascript">
+
+var delayUntilDone = (function() {
+        var timers = {};
+        return function (callback, time, id) {
+            if (!id){
+                id = "defaultId";
+            }
+            if (timers[id]) {
+                clearTimeout (timers[id]);
+            }
+            timers[id] = setTimeout(callback, time);
+        };
+    })();
+
+$(document).ready(function(){
+  $('#nav').compassRose({radius: '70%'});
+
+  window.addEventListener('resize', function(){  
+    delayUntilDone(function(){
+      $('#nav').compassRose('center');
+      $('#nav').compassRose('orient', true);
+    });
+  });  
+});
+</script>
+</body>
+</html>

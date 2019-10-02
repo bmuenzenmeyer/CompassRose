@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>CompassRose - A radial jQuery Plugin</title>
+<link rel="stylesheet" type="text/css" href="compassrose-0.0.css">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-25179306-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+<body>
+<a href="https://github.com/bmuenzenmeyer/CompassRose"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/fork.png" alt="Fork me on GitHub"></a>
+<div id="banner">
+  <div class="emphasis"><span>Compass Rose</span> - 4.57kb minified</div>
+</div>
+<div id="contactRibbon">
+	<span><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://compassro.se" data-text="CompassRose: Radial Orientation jQuery plugin" data-via="bmuenzenmeyer">Tweet</a></span>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	<span><a href="https://twitter.com/bmuenzenmeyer" class="twitter-follow-button" data-show-count="false">Follow @bmuenzenmeyer</a></span>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+<div id="nav">
+  <div id='home'>Home</div>
+  <div>&#9784;</div>
+  <div id='docs'><a href="documentation.html">Docs</a></div>
+  <div>&#9784;</div>
+  <div id='rotate'>Rotate 35&deg</div>
+  <div>&#9784;</div>
+  <div id='northPole'>Rotate to North</div>
+  <div>&#9784;</div>
+  <div id="rotateNegative">Rotate -120&deg</div>
+  <div>&#9784;</div>
+  <div id='demos'><a href="demos.html">Showcase</a></div>
+  <div>&#9784;</div>
+</div>
+<div id='compassRoseContent'>
+  <pre><code id="codeSnippet">$(<span>'#nav'</span>).compassRose();</code></pre>
+</div>
+<img id="crImage" src="images/compassrose.png" alt="" />
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="compassrose-0.3.min.js"></script>
+<script type="text/javascript">
+var delayUntilDone = (function() {
+        var timers = {};
+        return function (callback, time, id) {
+            if (!id){
+                id = "defaultId";
+            }
+            if (timers[id]) {
+                clearTimeout (timers[id]);
+            }
+            timers[id] = setTimeout(callback, time);
+        };
+    })();
+
+var contentLibrary = {home: "$(<span>'#nav'</span>).compassRose();",
+                      rotate: "$(<span>'#nav'</span>).compassRose(<span>'rotate'</span>, 35);",
+                      northPole: "$(<span>'#nav'</span>).compassRose(<span>'rotateTo'</span>, <span>'northPole'</span>, 90);",
+            rotateNegative: "$(<span>'#nav'</span>).compassRose(<span>'rotate'</span>, -120);"}
+function action(key){
+  switch (key){
+    case 'home':
+      $('#nav').compassRose('rotateTo', key, 90);
+      break;
+    case 'northPole':
+      $('#nav').compassRose('rotateTo', key, 90);
+      break;
+    case 'rotate':
+      $('#nav').compassRose('rotate', 35);
+      break;
+  case 'rotateNegative':
+    $('#nav').compassRose('rotate', -120);
+    break;
+  }
+  $('#nav').compassRose('center');
+}
+
+$(document).ready(function(){
+  $('#nav').compassRose();
+  $('#nav > div').click(function(){
+    var contentKey = $(this).attr('id');
+    $('#codeSnippet').html(contentLibrary[contentKey]);
+    action(contentKey);
+  });
+
+  window.addEventListener('resize', function(){  
+    delayUntilDone(function(){
+      $('#nav').compassRose('center');
+      $('#nav').compassRose('orient', true);
+    });
+  });
+});
+</script>
+</body>
+</html>

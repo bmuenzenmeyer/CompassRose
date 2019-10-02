@@ -1,0 +1,220 @@
+@font-face {
+	font-family: franchise;
+	src: url('Franchise-Bold.ttf');
+}
+
+body {
+	font-family: "Arial, serif";
+/* IE10 */ 
+background-image: -ms-radial-gradient(center, circle cover, #FFFFFF 0%, #91BAC2 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-radial-gradient(center, circle cover, #FFFFFF 0%, #91BAC2 100%);
+
+/* Opera */ 
+background-image: -o-radial-gradient(center, circle cover, #FFFFFF 0%, #91BAC2 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(radial, center center, 0, center center, 417, color-stop(0, #FFFFFF), color-stop(1, #91BAC2));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-radial-gradient(center, circle cover, #FFFFFF 0%, #91BAC2 100%);
+
+/* Proposed W3C Markup */ 
+background-image: radial-gradient(center, circle cover, #FFFFFF 0%, #91BAC2 100%);
+}
+
+#nav div span
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  text-align: center;
+}
+
+#nav div
+{
+  z-index: 2;
+}
+
+.compassRoseLightbox
+{
+  border: 2px black;
+}
+
+.lightboxOverlay
+{
+  display: none;
+	position: absolute;
+	background-color: black;
+	z-index: -1;
+	-moz-opacity: 0.9;
+	opacity:.90;
+	filter: alpha(opacity=90);
+}
+
+.lightboxOverlay.applied
+{
+  display: block;
+  z-index: 9;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+body
+{
+  margin: 0px;
+}
+
+a{
+  color: black;
+}
+
+a:visited
+{
+  color: #0000FF;
+}
+
+.secret
+{
+  display: none;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  height: 300px;
+  overflow: scroll;
+  background: black;
+	padding: 10px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-moz-box-shadow: 3px 3px 3px black;
+	-webkit-box-shadow: 3px 3px 3px black;
+	box-shadow: 3px 3px 3px black;
+  z-index: 2;
+  color: white;
+  position: relative;
+}
+
+.off
+{
+  float: right;
+}
+.ui-dialog-content
+{ 
+  overflow-y: auto !important; 
+  height: 300px !important; 
+}
+.centerContent
+{
+width: 400px;
+height: 425px;
+margin-left: auto;
+margin-right: auto;
+}
+.emphasis
+{
+ font-family: Georgia, Arial, serif;
+ font-size: 120%; 
+}
+
+#optionStart{
+ font-family: franchise, Arial, serif;
+ font-size: 180%;
+ text-align: center;
+ /*margin-left: -90px;*/
+ display: inline;
+ padding-left: 60px;
+}
+
+.exampleContainer
+{
+width: 400px;
+position: relative;
+left : 50%;
+margin-left: -200px;
+}
+code, .optionContainer
+{
+border: 1px solid black;
+padding: 10px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+-moz-box-shadow: 2x 2px 2px black;
+-webkit-box-shadow: 2px 2px 2px black;
+box-shadow: 2px 2px 2px black;
+font: 'courier';
+}
+code div
+{
+width: 400px;
+}
+code span, .optionTitle span
+{
+color: #0033FF;
+}
+.optionTitle span.number
+{
+color: #6600CC;
+}
+#codeSnippet
+{
+background-color: white;
+}
+#optionSnippet
+{
+width: 345px;
+background-color: white;
+}
+.optionTitle
+{
+font-weight: bold;
+padding-right: 10px;
+}
+.optionType
+{
+float: left;
+color: #0033FF;
+padding-right: 10px;
+}
+.optionDefault
+{
+float: left;
+font-style: italic;
+}
+.optionDescription
+{
+clear: both;
+}
+
+#contactRibbon{
+position: absolute;
+top: 30px;
+}
+
+#contactRibbon span{
+display: block;
+margin-top: 5px;
+}
+
+@media all and (max-width: 800px)
+{
+	.emphasis{
+		font-size: .7em;
+		float: left;
+		width: 400px;
+	}
+}
+
+#crImage
+{
+	margin-left: -150px;
+	margin-top: -168px;
+	position: fixed;
+	top: 50%;
+	top: 50%;
+	left: 50%;
+	z-index: -1;
+}
