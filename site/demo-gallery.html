@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>CompassRose - A radial jQuery Plugin</title>
+<link rel="stylesheet" type="text/css" href="compassrose-0.0.css">
+</head>
+<body>
+<a href="https://github.com/bmuenzenmeyer/CompassRose"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/fork.png" alt="Fork me on GitHub"></a>
+<div id="banner">
+  <div class="emphasis"><span><a href="http://compassro.se">Compass Rose</a></span> - 4.57kb minified</div>
+</div>
+<div id="nav">
+  <div data-width="404" data-height="500" data-link="http://www.flickr.com/photos/deptfordjon/5657364508/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="love_"><img src="images/demo-gallery/love_small.jpg" alt="Love"></div>
+  <div data-width="334" data-height="500" data-link="http://www.flickr.com/photos/dvanhorn/5837259541/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="sheep_"><img src="images/demo-gallery/sheep_small.jpg" alt="Sheep"></div>
+  <div data-width="375" data-height="500" data-link="http://www.flickr.com/photos/codepo8/5793084003/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="bulb_"><img src="images/demo-gallery/bulb_small.jpg" alt="Lightbulb"></div>
+  <div data-width="334" data-height="500" data-link="http://www.flickr.com/photos/quattrostagioni/5806842800/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="cans_"><img src="images/demo-gallery/cans_small.jpg" alt="Cans"></div>
+  <div data-width="500" data-height="375" data-link="http://www.flickr.com/photos/daquellamanera/5802189753/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="truck_"><img src="images/demo-gallery/truck_small.jpg" alt="Truck"></div>
+  <div data-width="500" data-height="333" data-link="http://www.flickr.com/photos/773niteowl/5816652413/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="parkingLot_"><img src="images/demo-gallery/parkingLot_small.jpg" alt="ParkingLot"></div>
+  <div data-width="500" data-height="299" data-link="http://www.flickr.com/photos/bixentro/5663625123/sizes/m/in/photostream/" data-imagepath="images/demo-gallery/" data-imagebase="red_"><img src="images/demo-gallery/red_small.jpg" alt="Red"></div>
+</div>
+<div id="lightboxOverlay" class="lightboxOverlay"></div>
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="compassrose-0.3.min.js"></script>
+<script type="text/javascript">
+
+var delayUntilDone = (function() {
+        var timers = {};
+        return function (callback, time, id) {
+            if (!id){
+                id = "defaultId";
+            }
+            if (timers[id]) {
+                clearTimeout (timers[id]);
+            }
+            timers[id] = setTimeout(callback, time);
+        };
+    })();
+
+$(document).ready(function(){
+
+  function light(element){
+    $(element).toggleClass('lightbox');
+    $("#lightboxOverlay").toggleClass('applied');
+    //set class for use as toggle
+    if($(element).hasClass('lightbox')){
+      var newImgSrcString = $(element).data('imagepath') + $(element).data('imagebase') + "large.jpg";
+      $(element).empty();
+      $(element).html('<span><img src="' + newImgSrcString + '" alt="Image"></span>');
+  
+      var imageElement = $(element).find('img');
+      $(element).css('z-index', 10);
+      
+      //find image height and width
+      var imgW = $(element).data('width');
+      var imgH = $(element).data('height');
+      
+      $(element).css('position', 'fixed');
+      var w = (($(window).width() / 2) - (imgW / 2));
+      var h = (($(window).height() / 2) - (imgH / 2));
+      
+      $(element).css('left', w);
+      $(element).css('top', h);
+    }else{
+      var newImgSrcString = $(element).data('imagepath') + $(element).data('imagebase') + "small.jpg";
+      $(element).empty();
+      $(element).html('<span><img src="' + newImgSrcString + '" alt="Image"></span>');
+      //zindex
+      $(element).css('z-index', 0);
+      //un-center
+      $(element).css('position', 'fixed');
+      $(element).css('left', $(element).data('compassRoseX'));
+      $(element).css('top', $(element).data('compassRoseY'));
+    }
+  }
+
+  var options = {radius: 250,
+                 clickFx: light}
+  $('#nav').compassRose(options);
+
+  window.addEventListener('resize', function(){  
+    delayUntilDone(function(){
+      $('#nav').compassRose('center');
+      $('#nav').compassRose('orient', true);
+    });
+  });
+});
+</script>
+</html>

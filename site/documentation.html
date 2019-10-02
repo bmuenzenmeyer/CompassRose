@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>CompassRose - A radial jQuery Plugin</title>
+<link rel="stylesheet" type="text/css" href="compassrose-0.0.css">
+</head>
+<body>
+<a href="https://github.com/bmuenzenmeyer/CompassRose"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/fork.png" alt="Fork me on GitHub"></a>
+<div id="banner">
+  <div class="emphasis"><span><a href="http://compassro.se">Compass Rose</a></span> - 4.57kb minified</div>
+</div>
+<div id="nav">
+  <div id='radius'>radius</div>
+  <div id='arc'>arc</div>
+  <div id='center'>center</div>
+  <div id='point'>point</div>
+  <div id='radialOffset'>radialOffset</div>
+  <div id='centerElementId'>centerElementId</div>
+  <div id='centerElementLeftOffset'>centerElementLeftOffset</div>
+  <div id='centerElementTopOffset'>centerElementTopOffset</div>
+  <div id='rotationEasing'>rotationEasing</div>
+  <div id='easingSpeed'>easingSpeed</div>
+  <div id='sliceWidth'>sliceWidth</div>
+  <div id='hoverFx'>hoverFx</div>
+  <div id='blurFx'>blurFx</div>
+  <div id='clickFx'>clickFx</div>
+  <div id='onRotateFx'>onRotateFx</div>
+</div>
+<div id='compassRoseContent'>
+  <div id="optionSnippet"><div class="optionContainer"><div id="optionStart">&lt Options | Functions &gt </div></div></div>
+</div>
+<div id="funcs">
+	<div id="centerFx">center</div>
+	<div id="rotateFx">rotate</div>
+	<div id="rotateToFx">rotateTo</div>
+</div>
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="compassrose-0.3.min.js"></script>
+<script type="text/javascript">
+
+var delayUntilDone = (function() {
+        var timers = {};
+        return function (callback, time, id) {
+            if (!id){
+                id = "defaultId";
+            }
+            if (timers[id]) {
+                clearTimeout (timers[id]);
+            }
+            timers[id] = setTimeout(callback, time);
+        };
+    })();
+
+function optionToHtml(optionTitle, optionType, optionDefault, optionDescription){
+  return "<div class='optionContainer'><div class='optionTitle'>" + optionTitle + 
+  "</div><div class='optionType'>" + optionType + 
+  "</div><div class='optionDefault'>" + optionDefault + 
+  "</div><div class='optionDescription'>" + optionDescription + "</div></div>"
+}
+var contentLibrary = {radius: optionToHtml('radius', 'number or %', '90%', 'Defines the radius of the CompassRose relative to the page window.  Uses smallest dimension when determining radius by percent.'),
+                      arc: optionToHtml('arc', 'number', '360', 'Defines the portion of a circle to orient CompassRose elements on.  360 is a complete circle.'),
+                      center: optionToHtml('center', 'boolean', 'true', 'When true, centers CompassRose on the browser window.'),
+            point: optionToHtml('point', 'object', '{x:600, y:600}', 'When "center" is false, the point determines where the middle of CompassRose orients.'),
+            radialOffset: optionToHtml('radialOffset', 'number', '0', 'Causes CompassRose to start orienting from a position relative to "North."'),
+            centerElementId: optionToHtml('centerElementId', 'string', 'compassRoseContent', 'Defines the element to be centered among CompassRose elements.'),
+            centerElementLeftOffset: optionToHtml('centerElementLeftOffset', 'number', '0', 'Defines a relative offset on the x-axis of the center of CompassRose.'),
+            centerElementTopOffset: optionToHtml('centerElementTopOffset', 'number', '0', 'Defines a relative offset on the y-axis of the center of CompassRose.'),
+            rotationEasing: optionToHtml('rotationEasing', 'string', 'undefined', 'String name of easing function to be used during rotate and rotateTo calls.  Supply your own for maximum flexibility.'),
+            easingSpeed: optionToHtml('easingSpeed', 'number', '2000', 'Number in millisecondsto perform easing function on radial animations.'),
+            sliceWidth: optionToHtml('sliceWidth', 'number', '4', 'The number of degrees to move CompassRose elements at a time when rotating without an easing function.  The default is set to preserve the look of radial movement.'),
+            hoverFx: optionToHtml('hoverFx','function', 'jQuery.noop()', 'Function to be called when user hovers over CompassRose element.'),
+            blurFx: optionToHtml('blurFx','function', 'jQuery.noop()', 'Function to be called when user leaves CompassRose element.'),
+            clickFx: optionToHtml('clickFx', 'function', 'jQuery.noop()', 'Function to be called when user clicks on CompassRose element.'),
+            onRotateFx: optionToHtml('onRotateFx', 'function', 'jQuery.noop()', 'Function to be called after CompassRose is finished rotating.'),
+            centerFx: optionToHtml("$(<span>'#ele'</span>).compassRose(<span>'center'</span>)", 'CompassRose function', '', 'When no arguments are supplied, centers CompassRose on the browser window.  When a point object (see "point" option) is supplied, CompassRose will center on it.'),
+            rotateFx: optionToHtml("$(<span>'#ele'</span>).compassRose(<span>'rotate'</span>, <span class='number'>number</span>)", 'CompassRose function', '', 'Rotates CompassRose by the number of degrees.  Negative numbers are allowed.'),
+            rotateToFx: optionToHtml("$(<span>'#ele'</span>).compassRose(<span>'rotateTo'</span>, <span>'id'</span>, <span class='number'>number</span>)", 'CompassRose function', '', 'Rotates the given CompassRose child element to the given angle.  Zero(0) is east.')
+           }
+$(document).ready(function(){
+  $('#nav').compassRose({arc: 180});
+  $('#nav > div, #funcs > div').click(function(){
+    var contentKey = $(this).attr('id');
+    $('#optionSnippet').html(contentLibrary[contentKey]);
+  $('#nav').compassRose('center');
+  });
+  
+  $('#funcs').compassRose({arc: 120, radialOffset: 230});
+
+  window.addEventListener('resize', function(){  
+    delayUntilDone(function(){
+      $('#nav').compassRose('center');
+      $('#nav').compassRose('orient', true);
+      $('#funcs').compassRose('center');
+      $('#funcs').compassRose('orient', true);
+    });
+  });
+
+});
+</script>
+</body>
+</html>

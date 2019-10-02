@@ -1,0 +1,144 @@
+<html>
+<head>
+<title>CompassRose - A radial jQuery Plugin</title>
+<link rel="stylesheet" type="text/css" href="compassrose-0.0.css">
+</head>
+<body>
+<a href="https://github.com/bmuenzenmeyer/CompassRose"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/fork.png" alt="Fork me on GitHub"></a>
+<div id="banner">
+  <div class="emphasis"><a href="http://compassro.se">Compass Rose</a> is a radial navigation/orientation plugin written in jQuery</div>
+</div>
+<div id="one">
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+</div>
+<div id="two">
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+	<div>2</div>
+</div>
+<div id="three">
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+	<div>3</div>
+</div>
+<div id="four">
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+	<div>4</div>
+</div>
+<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="compassrose-0.3.min.js"></script>
+<script type="text/javascript">
+var delayUntilDone = (function() {
+        var timers = {};
+        return function (callback, time, id) {
+            if (!id){
+                id = "defaultId";
+            }
+            if (timers[id]) {
+                clearTimeout (timers[id]);
+            }
+            timers[id] = setTimeout(callback, time);
+        };
+    })();
+
+$(function(){
+  $('#one').compassRose();
+  $('#two').compassRose({radius: '70%'});
+  $('#three').compassRose({radius: '50%'});
+  $('#four').compassRose({radius: '30%'});
+  
+  window.addEventListener('resize', function(){  
+	delayUntilDone(function(){
+		$('#one').compassRose('center');
+		$('#two').compassRose('center');
+		$('#three').compassRose('center');
+		$('#four').compassRose('center');
+		$('#one').compassRose('orient', true);
+		$('#two').compassRose('orient', true);
+		$('#three').compassRose('orient', true);
+		$('#four').compassRose('orient', true);
+    }, 400, "resizeWindow");  
+  });
+});
+</script>
+</body>
+</html>
